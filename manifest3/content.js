@@ -16,11 +16,12 @@ document.addEventListener('mouseover', e => {
 document.addEventListener('wheel', e => {
     if (e.shiftKey === false) return
     e.preventDefault()
+    const target = e.ctrlKey === true ? se : scrollable
 
     if (e.deltaY > 0) {
-        scrollable.scrollBy({ left: step, behavior: scrollBehavior })
+        target.scrollBy({ left: step, behavior: scrollBehavior })
     } else {
-        scrollable.scrollBy({ left: negativeStep, behavior: scrollBehavior })
+        target.scrollBy({ left: negativeStep, behavior: scrollBehavior })
     }
 
 }, { passive: false })
