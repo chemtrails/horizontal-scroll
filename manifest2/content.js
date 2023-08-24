@@ -1,48 +1,72 @@
 const se = document.scrollingElement
 
 let step = 100
-let negativeStep = -100
+let negativeStep = -step
 let scrollable = se
+let smooth = false
+let scrollBehavior = 'instant'
 
 main()
 
 document.addEventListener('mouseover', e => {
-    if (e.shiftKey !== false) return
+    if (e.shiftKey === true) return
     scrollable = getScrollable(e.target)
 })
 
 document.addEventListener('wheel', e => {
-    if (e.shiftKey !== true) return
+    if (e.shiftKey === false) return
     e.preventDefault()
-    
+
     if (e.deltaY > 0) {
-        scrollable.scrollBy({ left: step, behavior: 'instant' })
+        scrollable.scrollBy({ left: step, behavior: scrollBehavior })
     } else {
-        scrollable.scrollBy({ left: negativeStep, behavior: 'instant' })
+        scrollable.scrollBy({ left: negativeStep, behavior: scrollBehavior })
     }
+
 }, { passive: false })
 
 async function main() {
-    const res = await browser.storage.local.get('step')
+    const res = await browser.storage.local.get(['step', 'smooth'])
 
     if (res.step) {
-        step = parseInt(res.step)
-        negativeStep = -1 * step
+        step = res.step
+        negativeStep = -step
     }
 
+    if (res.smooth) {
+        smooth = res.smooth
+        setScrollBehavior()
+    }
+    
     browser.storage.onChanged.addListener((changes) => {
         if (changes.step) {
             step = changes.step.newValue
-            negativeStep = -1 * step
+            negativeStep = -step
+        }
+        
+        if (changes.smooth) {
+            smooth = changes.smooth.newValue
+            setScrollBehavior()
         }
     })
 }
 
 function getScrollable(el) {
     if (el === se) return se
-    const overflowX = window.getComputedStyle(el).getPropertyValue('overflow-x')
 
-    return (overflowX !== 'visible' && overflowX !== 'clip') && (el.scrollWidth > el.offsetWidth)
-        ? el
-        : getScrollable(el.parentElement)
+    try {
+        const overflowX = window.getComputedStyle(el).getPropertyValue('overflow-x')
+
+        return (overflowX !== 'visible' && overflowX !== 'clip') && (el.scrollWidth > el.offsetWidth)
+            ? el
+            : getScrollable(el.parentElement)
+
+    } catch (e) {
+        console.error(e)
+        return se
+    }
+}
+
+function setScrollBehavior() {
+    scrollBehavior = smooth === true ? 'smooth' : 'instant'
 }

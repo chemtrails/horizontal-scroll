@@ -1,28 +1,25 @@
+:root {
+    --blue: #aedfff;
+}
+
 body {
     margin: 0;
     background: black;
-    color: #aedfff;
     min-width: 200px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    color: var(--blue);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    gap: 20px;
     user-select: none;
     padding: 10px;
 }
 
-input {
-    outline: none;
+#smooth {
+    width: 20px;
+    height: 20px;
     border: none;
-    width: 100%;
 }
 
 #footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 10px;
     color: grey;
 }
@@ -36,6 +33,10 @@ input {
     gap: 10px;
 }
 
+.gap-20 {
+    gap: 20px;
+}
+
 .flex-col {
     flex-direction: column;
 }
@@ -43,4 +44,12 @@ input {
 a {
     text-decoration: none;
     color: inherit;
+}
+
+.just-center {
+    justify-content: center;
+}
+
+.w-100 {
+    width: 100%;
 }
