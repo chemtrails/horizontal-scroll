@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Horizontal scroll",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Scroll pages horizontally",
     "content_scripts": [
         {
@@ -17,9 +17,8 @@
         "default_popup": "popup.html",
         "default_icon": {
             "16": "16.png",
-            "19": "19.png",
-            "38": "38.png",
-            "48": "48.png",
+            "32": "32.png",
+            "64": "64.png",
             "128": "128.png"
         }
     },
@@ -28,9 +27,8 @@
     ],
     "icons": {
         "16": "16.png",
-        "19": "19.png",
-        "38": "38.png",
-        "48": "48.png",
+        "32": "32.png",
+        "64": "64.png",
         "128": "128.png"
     }
 }
