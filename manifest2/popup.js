@@ -1,24 +1,24 @@
-const stepInput = document.getElementById('step-input')
-const smooth = document.getElementById('smooth')
+const stepInput = document.getElementById('step-input');
+const smooth = document.getElementById('smooth');
 
-main()
+main();
 
-stepInput.oninput = async e => {
-    await browser.storage.local.set({step: parseInt(stepInput.value)})
+stepInput.oninput = async () => {
+  await browser.storage.local.set({ step: parseInt(stepInput.value) });
 }
 
-smooth.oninput = async e => {
-    await browser.storage.local.set({smooth: smooth.checked})
+smooth.oninput = async () => {
+  await browser.storage.local.set({ smooth: smooth.checked });
 }
 
 async function main() {
-    const res = await browser.storage.local.get(['step', 'smooth'])
+  const res = await browser.storage.local.get(['step', 'smooth']);
 
-    if (res.step) {
-        stepInput.value = res.step
-    }
+  if (res.step) {
+    stepInput.value = res.step;
+  }
 
-    if (res.smooth === true) {
-        smooth.checked = true
-    }
+  if (res.smooth === true) {
+    smooth.checked = true;
+  }
 }
